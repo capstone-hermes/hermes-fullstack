@@ -4,3 +4,6 @@
 [submodule "web-scanner"]
 	path = web-scanner
 	url = git@github.com:capstone-hermes/web-scanner.git
+[submodule "weak-website"]
+	path = weak-website
+	url = git@github.com:capstone-hermes/weak-website-fullstack.git
