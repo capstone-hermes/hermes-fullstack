@@ -1,0 +1,26 @@
+# docker-compose.yml: docker-compose configuration file "Hermes" capstone project
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  gui:
+    build: ./gui
+    ports:
+      - "5173:5173"
+    volumes:
+      - shared-volume:/usr/src/app/shared
+    networks:
+      - app-network
+
+  web-scanner:
+    build: ./web-scanner
+    volumes:
+      - shared-volume:/usr/src/app/shared
+    networks:
+      - app-network
+
+volumes:
+  shared-volume:
+  mysql-data:
