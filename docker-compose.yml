@@ -16,6 +16,8 @@ services:
 
   web-scanner:
     build: ./web-scanner
+    ports:
+      - "8000:8000"
     volumes:
       - shared-volume:/usr/src/app/shared
     networks:
