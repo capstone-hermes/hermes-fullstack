@@ -7,15 +7,6 @@ volumes:
   mysql-data:
 
 services:
-  gui:
-    build:
-      context: ./gui
-      dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
-    networks:
-      - app-network
-
   web-scanner:
     build:
       context: ./web-scanner
@@ -27,6 +18,19 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  gui:
+    build:
+      context: ./gui
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./gui/src:/usr/src/app/src
+    depends_on:
+      - web-scanner
+    networks:
+      - app-network
+
   db:
     image: mysql:latest
     environment:
@@ -36,10 +40,10 @@ services:
       - MYSQL_PASSWORD=${DB_PASSWORD}
     ports:
       - "3306:3306"
-    networks:
-      - app-network
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
 
   server:
     build:
